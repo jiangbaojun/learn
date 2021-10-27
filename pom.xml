@@ -15,6 +15,7 @@
         <module>qrcode</module>
         <module>elastaicsearchClient</module>
         <module>asyncMvc</module>
+        <module>rabbitmqDemo</module>
     </modules>
     <packaging>pom</packaging>
 

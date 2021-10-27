@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<!-- 示例页面弹出窗口 -->
+	<form id="operForm" class="vst-form" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="id" />
+		<div class="lineDiv">
+			<span class="vst-form-span">工号</span>
+			<input id="workid" name="workid" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+		</div>
+		<div class="lineDiv">
+			<span class="vst-form-span">姓名</span>
+			<input id="xm" name="xm" class="easyui-textbox">
+		</div>
+		<div class="lineDiv">
+			<span class="vst-form-span">手机</span>
+			<input id="sj" name="sj" class="easyui-validatebox easyui-textbox" data-options="invalidMessage:'请输入正确格式的手机号',required:true,validType:['mobile'],err:VST.validateErr">
+		</div>
+		<div class="lineDiv">
+			<span class="vst-form-span">入职日期</span>
+			<input name="date-rzrq" class="easyui-datebox">
+		</div>
+		<div class="lineDiv">
+			<span class="vst-form-span">职务</span>
+			<input id="zw" name="zw" class="easyui-textbox">
+		</div>
+		<div class="lineDiv no-margin">
+			<span class="vst-form-span">部门</span>
+			<input id="bm" name="bm" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+		</div>
+		<!-- 引入上传控件页面 -->
+		<div class="newlineDiv">
+			<th:block th:include="common/upload :: upload"></th:block>
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/meta :: meta"></th:block>
+    <script type="application/javascript" th:src="@{templates/basic/role/role.js}"></script>
+    <title>角色管理</title>
+</head>
+<body>
+<div class="easyui-layout vst" data-options="fit:true,border:false">
+    <div data-options="region:'north'" class="vst-north-search" style="height:auto">
+        <form id="searchForm" class="vst-form search">
+            <div class="lineDiv">
+                <span class="vst-form-span">角色名称</span>
+                <input name="rolename" class="easyui-textbox">
+            </div>
+            <div class="lineDiv search-btn">
+                <button id="btn_search" type="button" onclick="searchForm()" class="btn vbtn">搜索</button>
+            </div>
+        </form>
+    </div>
+    <div data-options="region:'center'" class="vst-center-content">
+        <table class="vst-easyui-datagrid" id="datagrid"
+               data-options="url:'basic/system/role/selectList', pagination:true, striped:true, border:false, idFeild : 'ROLEID',
+						  onDblClickRow : function(rowIndex, rowData){
+				             dblClickRow(rowIndex, rowData);
+				          }">
+            <thead>
+            <tr>
+                <th data-options="field:'ROLENAME',sortable:true" width="150px">角色名称</th>
+                <th data-options="field:'ROLECODE',sortable:true" width="150px">角色编码</th>
+                <th data-options="field:'ZZBM',sortable:true" width="150px">组织机构编码</th>
+                <th data-options="field:'ZZJGMC',sortable:true" width="150px">组织机构名称</th>
+
+                <!--                         <th data-options="field:'ZZJGID',sortable:true" width="150px">组织机构ID</th> -->
+                <!-- 			            <th data-options="field:'YXBZ',sortable:true" width="80px">有效标志</th> -->
+                <!-- 			            <th data-options="field:'DATAINSERTER',sortable:true" width="100px">录入人</th> -->
+                <!-- 			            <th data-options="field:'INSERTDATE',sortable:true" width="100px">录入日期</th> -->
+                <th data-options="field:'CZR',sortable:true" width="120px">操作人</th>
+                <th data-options="field:'CZRQ',sortable:true,align:'center'" width="120px">操作日期</th>
+
+                <th data-options="field:'BZ',sortable:true" width="200px">备注</th>
+                <th data-options="field:'OPERATION_BTN', align:'center', formatter:formatOperationBtn" width="130px">操作</th>
+                <th data-options="field:'ROLEID',checkbox : true" width="200px">角色ID</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div data-options="region:'south',border:false" class="vst-south-foot">
+        <div class="vst-bottom-tools">
+            <div class="btn-tools">
+                <button id="btn_add" onclick="add()" class="btn vbtn">添加</button>
+                <button id="btn_remove" onclick="remove()" class="btn vbtn">批量删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="win" class="easyui-dialog" title="标题"
+     buttons="#dlg-buttons"
+     data-options="modal:true,closed:true,border:'thin',size:'b',height:400">
+    <form id="operForm" class="vst-form" method="post" enctype="multipart/form-data">
+        <div class="lineDiv">
+            <span class="vst-form-span">角色编码</span>
+            <input name="rolecode" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">角色名称</span>
+            <input name="rolename" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv no-margin">
+            <span class="vst-form-span">组织机构</span>
+            <input id="organizationId" name="organizationId" class="easyui-combotree" data-options="required:true, panelMaxHeight: 300">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">有效标志</span>
+            <select	id="validFlag" name="validFlag" class="easyui-combobox" data-options="required:true,err:VST.validateErr, panelHeight:'auto'">
+                <option value="1">有效</option>
+                <option value="0">无效</option>
+            </select>
+        </div>
+        <div class="lineDiv no-margin">
+            <span class="vst-form-span">备注信息</span>
+            <input id="memo" name="memo" class="easyui-validatebox easyui-textbox" data-options="required:false,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">拥有资源</span>
+            <select id="resourceId" name="resourceId" class="easyui-combotree"
+                    data-options="
+		        		required: true,
+		        		err:VST.validateErr,
+		    			width: 430,
+		   				panelMaxHeight: 260,
+		        		multiple: true,
+		        		multiline: true,
+		        		panelHeight:'auto'">
+            </select>
+        </div>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <button type="button" onclick="$('#win').dialog('close')" class="btn vbtn">取消</button>
+    <button type="button" onclick="save()" class="btn vbtn">保存</button>
+</div>
+
+<script type="text/javascript">
+    var OrgMap = {};
+    $.ajax({
+        url: 'basic/system/organization/selectCombobox',
+        success: function(data){
+            var opt = {
+                parentField: "_parentId",
+                idFiled: "ZZJGID",
+                textFiled: "ZZJGMC",
+            };
+            var rootData = [];
+            var idFiled, textFiled, parentField;
+            if (opt.parentField) {
+                idFiled = opt.idFiled || 'id';
+                textFiled = opt.textFiled || 'text';
+                parentField = opt.parentField;
+
+                var i, l, treeData = [], tmpMap = [];
+
+
+                for (i = 0, l = data.length; i < l; i++) {
+                    tmpMap[data[i][idFiled]] = data[i];
+                }
+
+                for (i = 0, l = data.length; i < l; i++) {
+                    if (tmpMap[data[i][parentField]] && data[i][idFiled] != data[i][parentField]) {
+                        if (!tmpMap[data[i][parentField]]['children'])
+                            tmpMap[data[i][parentField]]['children'] = [];
+                        data[i]['id'] = data[i][idFiled];
+                        data[i]['text'] = data[i][textFiled];
+                        tmpMap[data[i][parentField]]['children'].push(data[i]);
+                    } else {
+                        data[i]['id'] = data[i][idFiled];
+                        data[i]['text'] = data[i][textFiled];
+                        treeData.push(data[i]);
+                        //根数据
+                        rootData.push({
+                            "id": data[i][idFiled],
+                            "text": data[i][textFiled],
+                            "state": "closed"
+                        });
+                    }
+                }
+                OrgMap = tmpMap;
+            }else {
+                OrgMap = data;
+            }
+            //第一级数据,初始化
+            initOrgComboTree(rootData);
+        }
+    });
+    function initOrgComboTree(data){
+        $('#organizationId').combotree({
+            idFiled: "id",
+            textFiled: "text",
+            data: data,
+            onBeforeExpand: function (node) {
+                if(!node.isAdded){
+                    node.isAdded = true;
+                }else{
+                    return true;
+                }
+                var pNode = OrgMap[node.id];
+                if(pNode && pNode.children && pNode.children.length>0){
+                    var nodes = pNode.children;
+                    var childNodes = [];
+                    for (var i=0;i<nodes.length;i++) {
+                        var item = nodes[i];
+                        var obj = {
+                            "id": item.id,
+                            "text": item.text,
+                        };
+                        if(item.children&& item.children.length>0){
+                            obj.state = "closed";
+                        }
+                        childNodes.push(obj)
+                    }
+                    $("#organizationId").combotree('tree').tree('append', {
+                        parent: node.target,
+                        data: childNodes
+                    });
+                }else{
+
+                }
+            }
+        });
+    }
+
+
+    var eventNode = null;
+    $('#resourceId').combotree({
+        url: 'basic/system/resource/selectCombobox',
+        parentField: "_parentId",
+        idFiled: "XTQXID",
+        textFiled: "QXMC",
+        lines: true,
+        checkbox:true,
+        cascadeCheck: false,
+        //autoCheckParent: true,
+        loadFilter: function(data, parent){
+            var opt = $(this).data().tree.options;
+            var idFiled, textFiled, parentField;
+            if (opt.parentField) {
+                idFiled = opt.idFiled || 'id';
+                textFiled = opt.textFiled || 'text';
+                parentField = opt.parentField;
+
+                var i, l, treeData = [], tmpMap = [];
+
+                for (i = 0, l = data.length; i < l; i++) {
+                    tmpMap[data[i][idFiled]] = data[i];
+                }
+
+                for (i = 0, l = data.length; i < l; i++) {
+                    if (tmpMap[data[i][parentField]] && data[i][idFiled] != data[i][parentField]) {
+                        if (!tmpMap[data[i][parentField]]['children'])
+                            tmpMap[data[i][parentField]]['children'] = [];
+                        data[i]['id'] = data[i][idFiled];
+                        data[i]['text'] = data[i][textFiled];
+                        tmpMap[data[i][parentField]]['children'].push(data[i]);
+                    } else {
+                        data[i]['id'] = data[i][idFiled];
+                        data[i]['text'] = data[i][textFiled];
+                        treeData.push(data[i]);
+                    }
+                }
+                //alert(JSON.stringify(treeData));
+                return treeData;
+            }
+            return data;
+        },
+        onCheck: function (node, checked) {
+            if (checked) {
+                if (!eventNode) {
+                    eventNode = node;
+                    treeup = true;//向上遍历标志，由鼠标勾选的节点eventNode开始向上遍历
+                }
+
+                // 由鼠标勾选的节点eventNode开始向上遍历
+                if(treeup) {
+                    var parentNode = $(this).tree('getParent', node.target);
+                    if (parentNode != null) {
+                        $(this).tree('check', parentNode.target);
+                    }
+                    treeup = false; //向上遍历结束
+                }
+
+                // 到达根部节点或向上遍历结束之后再回到原始节点开始向下遍历
+                if(!treeup && eventNode) {
+                    var childNode = $(this).tree('getChildren', eventNode.target);
+                    if (childNode.length > 0) {
+                        for (var i = 0; i < childNode.length; i++) {
+                            $(this).tree('check', childNode[i].target);
+                        }
+                    }
+                }
+                eventNode = null; //标志本次鼠标勾选事件遍历结束
+            } else {
+                // 取消当前节点的所有子节点选中状态
+                var childNode = $(this).tree('getChildren', node.target);
+                if (childNode.length > 0) {
+                    for (var i = 0; i < childNode.length; i++) {
+                        $(this).tree('uncheck', childNode[i].target);
+                    }
+                }
+
+                // 判断当前节点的兄弟节点是否选中，如果都没有选中，父级节点取消选中状态
+                // 当前节点的父级节点
+                var parentNode = $(this).tree('getParent', node.target);
+                if (parentNode != null) {
+                    // 当前节点的兄弟节点
+                    var siblingsNode = $(this).tree('getChildren', parentNode.target);
+                    var checkedCount = 0;
+                    for (var i = 0; i < siblingsNode.length; i++) {
+                        if(siblingsNode[i].checked) {
+                            checkedCount = checkedCount + 1;
+                        }
+                    }
+                    // 兄弟节点都未选中，父节点取消选中状态
+                    if (checkedCount == 0) {
+                        $(this).tree('uncheck', parentNode.target);
+                    }
+                }
+            }
+        }
+    });
+
+    function formatOperationBtn(val, row, index){
+        //空数据（id为空的）不添加修改选项
+        if(row.ROLEID == undefined){
+            return;
+        }
+        var btns = '';
+        btns = '<a class="datagrid-operate edit" title="编辑" href="javascript:void(0)" onclick="edit('+index+')"></a>';
+        btns += '<a class="datagrid-operate remove" title="删除" href="javascript:void(0)" onclick="removeOnly('+index+')"></a>';
+        return btns;
+    }
+</script>
+</body>
+</body>
+</html>

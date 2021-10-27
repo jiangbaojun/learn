@@ -1,0 +1,38 @@
+server:
+  port: 80
+
+datasource:
+  sources:
+    demo_ds_1:
+      url: jdbc:mysql://127.0.0.1:3306/demo_ds_1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 12345678
+    demo_ds_0:
+      url: jdbc:mysql://127.0.0.1:3306/demo_ds_0?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 12345678
+spring:
+#  datasource:
+#    name: datasource
+#    url: jdbc:mysql://127.0.0.1:3306/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#    username: root
+#    password: 12345678
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+  #热部署生效
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java,src/main/resources/templates
+      exclude: WEB-INF/**
+  application:
+    name: thymeleaf
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+dept:
+  name: 11

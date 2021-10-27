@@ -1,0 +1,91 @@
+/* 工单办理文件预览高度 */
+.backlog.file-plug div#fileViewContainer {
+   max-height: 100px;
+}
+tr.exist-already {
+    color: #999;
+}
+#operFormFull, #statusGrid{
+	height: 100%;
+}
+#reportForm{
+	padding: 10px 0 0 0;
+}
+.row > div[class*="col-"]{
+	height: 100%;
+	padding: 0 0 0 5px;
+}
+.row.handle{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.row .handle-base-info{
+	border: 1px solid #D3D3D3;
+}
+.vst-form.handle{
+	padding: 5px 0 0 0;
+}
+.vst-form .vst-form-span.affiliate{
+	margin-right: 10px;
+}
+.ctrl-btn{
+	margin-right: 36px !important;
+}
+
+/* 宸ュ崟鐧昏琛ㄥ綋鏍峰紡 */
+.gd-table{
+	width:100%;
+}
+.gd-td.name{
+	text-align: center;
+	width:90px;
+	min-width: 90px;
+}
+.form-gd-item{
+	outline: none;
+    border: 0;
+}
+.form-gd-item.bh{
+	background-color:transparent;
+}
+.table-form span.textbox {
+	border:0;
+}
+.gd-table span.textbox .textbox-text {
+    background-color: transparent;
+}
+.gd-table span.textbox {
+    background-color: transparent;
+    border:0;
+}
+.gd-tr{
+	height: 30px;
+}
+label{
+	font-weight: 500;
+	cursor:pointer;
+}
+/* 宸ュ崟鍔炵悊锛屽熀鏈俊鎭睍绀� */
+.form-item.subject{
+	font-weight: bold;
+}
+.gdinfo-div{
+	margin-top: 5px;
+	height: 160px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: #666;
+}
+.sel-input .textbox-text{
+	cursor: pointer;
+}
+.type-switch{
+	float: right;
+	margin-top: 2px;
+	margin-right: 19px;
+}
+.viewEcharts{
+	float: left;
+	width: 100%;
+	height: calc(100% - 31px);
+}

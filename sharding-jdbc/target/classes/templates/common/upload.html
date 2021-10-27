@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body th:fragment="upload">
+	<div class="file-container">
+		<!-- 文件上传 -->
+		<div id="fileUploadContainer" class="file-upload-container"></div>
+		<!-- 文件预览 -->
+		<div id="fileViewContainer" class="file-view-container"></div>
+	</div>
+	<script type="text/javascript">
+		/**
+		 * 上传文件成功后，回调（跨域时该方法无效，通过postmessage实现）
+		 */
+		function fileUploadInform(data){
+			FileModel.PreviewFiles(data);
+		};
+		$(function(){
+			FileModel = Common.getFileModel();
+			//初始化
+			FileModel.initUploadPlugin(window);
+		});
+
+	</script>
+</body>
+</html>

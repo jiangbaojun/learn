@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="common/meta-layui :: meta"></th:block>
+	<title>测试1-layui</title>
+	<script type="application/javascript" th:src="@{/templates/demo1-layui/demo1.js}"></script>
+</head>
+<body>
+<div class="vst-container">
+	<div class="vst-main">
+
+		<fieldset class="table-search-fieldset">
+			<legend>搜索信息</legend>
+			<div style="margin: 10px 10px 10px 10px">
+				<form class="layui-form layui-form-pane" autocomplete="off" action="">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">姓名</label>
+							<div class="layui-input-inline">
+								<input type="text" name="xm" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">入职日期</label>
+							<div class="layui-input-inline date-range">
+								<input type="text" id="rzrq1" name="date-rzrq1" class="layui-input">
+								至
+								<input type="text" id="rzrq2" name="date-rzrq2" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">职务</label>
+							<div class="layui-input-inline">
+								<input type="text" name="zw" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button type="submit" class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn">
+								<i class="layui-icon layui-icon-search"></i>搜 索
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</fieldset>
+
+		<script type="text/html" id="toolbarDemo">
+			<div class="layui-btn-container">
+				<button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+				<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 批量删除 </button>
+				<button class="layui-btn layui-btn-sm data-download-btn" lay-event="download"> 下载 </button>
+			</div>
+		</script>
+
+		<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+		<script type="text/html" id="currentTableBar">
+			<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+		</script>
+
+	</div>
+</div>
+</body>
+</html>

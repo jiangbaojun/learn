@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: dev
+---
+# spring配置
+spring:
+  # dev环境
+  profiles: dev
+  # 前端thymeleaf模板配置
+  thymeleaf:
+    enabled: true
+    cache: false
+    encoding: UTF-8
+    mode: HTML
+    suffix: .html
+    # 模板文件存放位置
+    prefix: classpath:/templates/
+  elasticsearch:
+    rest:
+      uris:
+        - http://140.100.135.211:9200
+        - http://140.100.135.211:9201
+        - http://140.100.135.211:9202
+      username: elastic
+      password: 12345678
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true

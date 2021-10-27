@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="common/meta :: meta"></th:block>
+	<title>测试1</title>
+	<script type="application/javascript" th:src="@{/templates/demo1/demo1.js}"></script>
+</head>
+<body>
+	<!-- 这是一个加载过渡页面，根据项目实际情况决定是否需要引入，建议引入 -->
+	<th:block th:include="common/loading :: loading"></th:block>
+	<!-- 上中下布局页面示例,class添加vst -->
+	<div class="easyui-layout vst" data-options="fit:true,border:false">
+		<!-- 布局上： 通常作为条件搜索区域，高度根据搜索条件自适应。class添加vst-north-search-->
+		<div data-options="region:'north', border:false" class="vst-north-search" style="height:auto">
+			<!-- 条件搜索表单。 class添加vst-form search-->
+			<form id="searchForm" class="vst-form search" data-options="labelAlign:false">
+				<!-- 表单项用法详见文档 -->
+				<div class="lineDiv">
+					<span class="vst-form-span">姓名</span>
+					<input id="xm" name="xm" class="easyui-textbox">
+				</div>
+				<div class="lineDiv">
+					<span class="vst-form-span">入职日期</span>
+						<input name="date-rzrq1" class="easyui-datebox" data-options="width:120">
+					     至 <input name="date-rzrq2"  class="easyui-datebox" data-options="width:120">
+				</div>
+				<div class="lineDiv">
+					<span class="vst-form-span">职务</span>
+					<input id="zw" name="zw" class="easyui-textbox">
+				</div>
+				<div class="lineDiv search-btn">
+					<!-- 注意，表单内非提交按钮，添加type="button"属性 -->
+					<button id="btn_search" type="button" onclick="searchForm()" class="btn vbtn">搜索</button>
+				</div>
+			</form>
+		</div>
+
+		<!-- 布局中： 通常作为主要内容数据展示区域。 class添加vst-center-content属性 -->
+		<div data-options="region:'center'" class="vst-center-content">
+			<!-- 表格 -->
+			<table id="datagrid"></table>
+		</div>
+
+		<!-- 布局下： 通常作为操作按钮区域。 class添加vst-south-foot属性 -->
+		<div data-options="region:'south',border:false" class="vst-south-foot">
+			<!-- 下面的class照样添加即可 -->
+			<div class="vst-bottom-tools">
+				<!-- 操作按钮 -->
+				<div class="btn-tools">
+					<button onclick="javascript:add()" class="btn vbtn">添加</button>
+					<button onclick="javascript:addFull()" class="btn vbtn">添加1</button>
+					<button onclick="javascript:remove()" class="btn vbtn">批量删除</button>
+					<button onclick="javascript:downLoadByTableSelect()" class="btn vbtn">下载</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 引入查看文件页面 -->
+	<div class="newlineDiv">
+		<th:block th:include="common/viewFiles :: viewFiles"></th:block>
+	</div>
+
+	<!--弹出层区域(添加、编辑)-->
+	<div id="win" title="添加员工" style="display: none"
+		data-options="buttons:'#dlg-buttons',modal:true,closed:true,border:'thin',size:'b'">
+	</div>
+	<div id="dlg-buttons" style="display: none">
+		<button type="button" onclick="javascript:$('#win').dialog('close')" class="btn vbtn">取消</button>
+		<button id="saveBtn" type="button" onclick="save()" class="btn vbtn">保存</button>
+	</div>
+
+	<!--弹出层区域(查看)-->
+	<div id="winView" title="查看员工" style="display: none"
+		data-options="buttons:'#dlg-buttons-view',modal:true,closed:true,border:'thin',size:'b'">
+	</div>
+	<div id="dlg-buttons-view" style="display: none">
+		<button type="button" onclick="javascript:$('#winView').dialog('close')" class="btn vbtn">关闭</button>
+	</div>
+
+	<!--弹出层区域，表单项较多,全屏展示。size=full-->
+	<div id="winFull" title="添加员工" style="display: none"
+		data-options="buttons:'#dlg-buttons-full',modal:true,closed:true,border:'thin',size:'full'">
+	</div>
+	<div id="dlg-buttons-full" class="buttonDiv">
+		<button type="button" onclick="javascript:$('#winFull').dialog('close')" class="btn vbtn">取消</button>
+		<button type="button" onclick="saveFull()" class="btn vbtn">保存</button>
+	</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>error</title>
+</head>
+<body>
+<!-- 优先级比4xx.html高 -->
+<h2>遇到异常了404.html</h2>
+<h1 th:text="${path}"></h1>
+<h1 th:text="${message}"></h1>
+<h1 th:text="${exception}"></h1>
+<h1 th:text="${error}"></h1>
+<h1 th:text="${reason}"></h1>
+</body>
+</html>

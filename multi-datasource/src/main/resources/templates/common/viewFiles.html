@@ -1,0 +1,23 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body th:fragment="viewFiles">
+	<!-- 弹出层区域(文件列表) -->
+	<div id="winFiles" style="display: none"
+		data-options="buttons:'#files-buttons'">
+		<table id="viewFilesTable"></table>
+	</div>
+	<div id="files-buttons" style="display: none">
+		<button type="button" onclick="javascript:$('#winFiles').dialog('close')" class="btn vbtn">关闭</button>
+		<button type="button" onclick="FileModel.downloadFilesByTableId('viewFilesTable')" class="btn vbtn">下载</button>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			FileModel = Common.getFileModel();
+		});
+	</script>
+</body>
+</html>

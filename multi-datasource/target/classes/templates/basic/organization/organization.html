@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/meta :: meta"></th:block>
+    <script type="application/javascript" th:src="@{templates/basic/organization/organization.js}"></script>
+    <title>组织管理</title>
+</head>
+<body>
+<th:block th:include="common/loading :: loading"></th:block>
+<div class="easyui-layout vst" data-options="fit:true,border:false">
+    <div data-options="region:'north'" class="vst-north-search" style="height:auto">
+        <form id="searchForm" class="vst-form search">
+            <div class="lineDiv">
+                <span class="vst-form-span">组织编码</span>
+                <input id="organizationCode" name="organizationCode" class="easyui-textbox">
+            </div>
+            <div class="lineDiv">
+                <span class="vst-form-span">组织名称</span>
+                <input id="organizationName" name="organizationName" class="easyui-textbox">
+            </div>
+            <div class="lineDiv search-btn">
+                <button id="btn_search" type="button" onclick="searchForm()" class="btn vbtn">搜索</button>
+            </div>
+        </form>
+    </div>
+    <div data-options="region:'center'" class="vst-center-content">
+        <table class="easyui-treegrid" id="treegrid"
+               data-options="
+			         url:'basic/system/organization/selectList',
+			         fit : true,
+			         fitColumns : true,
+			         border : false,
+					 rownumbers: true,
+					 animate: true,
+					 dnd: true,
+					 pagination: false,
+					 selectOnCheck:true,
+					 checkOnSelect:true,
+					 idField: 'ZZJGID',
+					 treeField: 'ZZJGMC'
+			     ">
+            <thead>
+            <tr>
+                <th data-options="field:'ZZJGMC',sortable:true, width:100">组织名称</th>
+                <th data-options="field:'ZZBM',sortable:true, width:100">组织编码</th>
+                <th data-options="field:'ZZJGMS',sortable:true, width:100">组织描述</th>
+                <!--
+                <th data-options="field:'YXBZ',sortable:true" width="100px">有效标志</th>
+                <th data-options="field:'DATAINSERTER',sortable:true" width="100px">录入人</th>
+                <th data-options="field:'INSERTDATE',sortable:true" width="100px">录入日期</th>
+                <th data-options="field:'CZR',sortable:true" width="100px">操作人</th>
+                <th data-options="field:'CZRQ',sortable:true" width="100px">操作日期</th>
+                -->
+                <th data-options="field:'BZ',sortable:true, width:100">备注</th>
+                <th data-options="field:'OPERATION_BTN', formatter:formatOperationBtn" width="100px">操作</th>
+                <th data-options="field:'ZZJGID',checkbox: true" width="100px">组织ID</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div id="win" class="easyui-dialog" title="标题"
+     buttons="#dlg-buttons"
+     data-options="modal:true,closed:true,border:'thin',size:'a',height:420">
+    <form id="operForm" class="vst-form" method="post" enctype="multipart/form-data">
+        <div class="lineDiv">
+            <span class="vst-form-span">组织编码</span>
+            <input name="organizationCode" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">组织名称</span>
+            <input name="organizationName" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">上级组织</span>
+            <input id="parentId" name="parentId" class="easyui-combotree" data-options="required:false,err:VST.validateErr,panelMaxHeight: 260">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">组织描述</span>
+            <input id="organizationDescription" name="organizationDescription" class="easyui-validatebox easyui-textbox" data-options="required:false,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">有效标志</span>
+            <select	id="validFlag" name="validFlag" class="easyui-combobox" data-options="required:true,err:VST.validateErr, panelHeight:'auto'">
+                <option value="1">有效</option>
+                <option value="0">无效</option>
+            </select>
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">备注信息</span>
+            <input id="memo" name="memo" class="easyui-validatebox easyui-textbox" data-options="required:false,err:VST.validateErr">
+        </div>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <button type="button" onclick="$('#win').dialog('close')" class="btn vbtn">取消</button>
+    <button type="button" onclick="save()" class="btn vbtn">保存</button>
+</div>
+
+</body>
+</html>

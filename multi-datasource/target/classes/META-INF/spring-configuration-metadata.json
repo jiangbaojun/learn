@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "datasource",
+      "type": "com.mrk.learn.md.properties.MrkDataSources",
+      "sourceType": "com.mrk.learn.md.properties.MrkDataSources"
+    }
+  ],
+  "properties": [
+    {
+      "name": "datasource.sources",
+      "type": "java.util.Map<java.lang.String,com.mrk.learn.md.properties.DataSourceInfo>",
+      "description": "数据源连接",
+      "sourceType": "com.mrk.learn.md.properties.MrkDataSources"
+    }
+  ],
+  "hints": []
+}

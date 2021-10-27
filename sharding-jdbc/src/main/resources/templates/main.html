@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="common/meta :: meta"></th:block>
+  <title>icos</title>
+  <script type="application/javascript" th:src="@{/templates/main.js}"></script>
+</head>
+<body id="vstContainer" class="easyui-layout vst-container" scroll="no">
+  <th:block th:include="common/loading :: loading"></th:block>
+  <!-- 顶部布局，log banner -->
+  <div region="north" data-options="border:false" class="layout-north-container" style="height:50px;">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="north-table">
+      <tr>
+        <td align="left" class="left">
+          <div class="head-left"><img class="left-logo-img" th:src="@{/images/main/logo.png}"></div>
+          <div class="head-left"><span class="left-title">伟仕VSTA系统开发平台</span></div>
+        </td>
+        <td align="right" class="right">
+          <div id="loginOut" class="head-right logout">
+            <img class="right-img logout-img" th:src="@{/images/main/logout.png}">
+            <span class="right-text desktop-text">退出</span>
+          </div>
+          <div class="separator-right"></div>
+          <div class="head-right user">
+            <div id="userSetDrop" class="dropdown">
+              <div data-toggle="dropdown">
+                <img class="right-img user-img" th:src="@{/images/main/user.png}">
+                <span class="right-text user-text" th:text="${username}">用户名</span>
+              </div>
+              <ul class="dropdown-menu dropdown-menu-center desktop">
+<!--                <li id="userChangePassword">-->
+<!--                  <a href="javascript:void(0)">登录密码修改</a>-->
+<!--                </li>-->
+<!--                <li role="separator" class="divider"></li>-->
+                <li id="userChangeTheme">
+                  <a href="javascript:void(0)">主题样式选择</a>
+                </li>
+                <li id="userChangeFont">
+                  <a href="javascript:void(0)">字体大小选择</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="separator-right"></div>
+          <div class="head-right desktop">
+            <img class="right-img desktop-img" th:src="@{/images/main/desktop.png}">
+            <span class="right-text desktop-text">我的桌面</span>
+          </div>
+          <div class="separator-right"></div>
+          <div class="head-right notice">
+            <img class="right-img notice-img" th:src="@{/images/main/notice.png}">
+            <span class="right-text notice-text">通知</span>
+          </div>
+          <!--  菜单搜索 -->
+          <div class="head-right menu-search">
+            <img class="search-img" th:src="@{/images/main/zoom.png}">
+            <input id="navText" type="text" class="search-text" placeholder="搜索" data-options="height:24"/>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- 左侧导航菜单 -->
+  <div region="west" data-options="border:false" class="layout-west-container" style="width:200px;">
+    <div class="menu-container">
+      <div id="menuTree" class="menu-tree"></div>
+    </div>
+    <div class="foot server-time">
+      <span id="serverDate" class="foot-text text-date">0-0-0</span>
+      <span id="serverTime" class="foot-text text-time">00:00:00</span>
+    </div>
+  </div>
+  <!-- 主面板 -->
+  <div id="mainPanle" region="center" class="main-panel layout-center-container">
+    <div id="tabs"  class="easyui-tabs vst-tabs-container" data-options="fit:true,border:false,tabHeight:38" ></div>
+  </div>
+
+  <!-- 鼠标右键菜单 -->
+  <div id="mm" class="easyui-menu close-menu">
+    <div id="mm-tabupdate">刷新</div>
+    <div id="mm-tabclose">关闭</div>
+    <div id="mm-tabcloseother">关闭其他</div>
+    <div id="mm-tabcloseright">关闭右侧</div>
+    <div id="mm-tabcloseleft">关闭左侧</div>
+    <div id="mm-tabcloseall">关闭全部</div>
+  </div>
+
+  <!-- 用户设置-->
+  <th:block th:include="common/userSet :: userSet"></th:block>
+</body>
+</html>

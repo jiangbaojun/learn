@@ -1,0 +1,12 @@
+logging:
+  level:
+    root: info
+spring:
+  elasticsearch:
+    rest:
+      uris:
+        - http://140.100.135.211:9200
+        - http://140.100.135.211:9201
+        - http://140.100.135.211:9202
+      username: elastic
+      password: 12345678

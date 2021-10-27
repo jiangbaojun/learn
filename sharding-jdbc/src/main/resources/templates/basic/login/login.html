@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="common/meta :: meta"></th:block>
+    <title>系统登录</title>
+    <script type="text/javascript">
+        /**
+         * 登录操作
+         */
+        function doSubmit() {
+            if ($("#submitBtn").data("logining")) {
+                return;
+            }
+            $("#submitBtn").attr("disabled", "").addClass("theme-bgcolor").text("正在登录……").data("logining", true);
+            if (!$("#loginForm").form('validate')) {
+
+            } else {
+                $("#loginForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="login-container">
+    <div class="layout-head">
+        <div class="head-item logo">
+            <img th:src="@{/images/login/new/logo.png}"/>
+        </div>
+        <div class="head-item separator"></div>
+        <div class="head-item name">
+            <img th:src="@{/images/login/new/systemName.png}"/>
+        </div>
+
+    </div>
+    <div class="layout-form">
+        <form id="loginForm" name="loginform" method="post" class="login-form">
+            <div class="transparent-layer"></div>
+            <div class="content-layer">
+                <div class="login-head">
+                    <div class="text">欢迎登录</div>
+                    <div class="underline"></div>
+                </div>
+                <div class="login-content">
+                    <input id="loginType" name="logintype" type="hidden"/>
+                    <div class="item username">
+                        <img th:src="@{/images/login/new/username.png}"/>
+                        <input id="username" name="username" value="admin" placeholder="用户名"/>
+                    </div>
+                    <div class="item password">
+                        <img th:src="@{/images/login/new/password.png}"/>
+                        <input id="password" name="password" value="admin"
+                               onkeydown="if(event.keyCode==13){doSubmit();}" type="password"
+                               placeholder="密码"/>
+                    </div>
+                    <div class="item button">
+                        <button id="submitBtn" class="btn login-btn" type="button" onclick="doSubmit()">登录</button>
+                    </div>
+                </div>
+            </div>
+            <div class="check" th:title="${msg}" th:text="${msg}"></div>
+        </form>
+    </div>
+    <div class="layout-foot"></div>
+</div>
+</body>
+</html>

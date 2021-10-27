@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/meta :: meta"></th:block>
+    <script type="application/javascript" th:src="@{templates/basic/resource/resource.js}"></script>
+    <title>资源管理</title>
+</head>
+<body>
+<div class="easyui-layout vst" data-options="fit:true,border:false">
+
+    <div data-options="region:'north'" class="vst-north-search" style="height:auto">
+        <form id="searchForm" class="vst-form search">
+            <div class="lineDiv">
+                <span class="vst-form-span">权限代码</span>
+                <input id="code" name="code" class="easyui-textbox">
+            </div>
+            <div class="lineDiv">
+                <span class="vst-form-span">权限名称</span>
+                <input id="name" name="name" class="easyui-textbox">
+            </div>
+            <div class="lineDiv search-btn">
+                <button id="btn_search" type="button" onclick="searchForm()" class="btn vbtn">搜索</button>
+            </div>
+        </form>
+    </div>
+
+    <div data-options="region:'center'" class="vst-center-content">
+        <table id="treegrid" class="easyui-treegrid"
+               data-options="
+			         url:'basic/system/resource/selectList',
+			         pagination : false,
+			         fit : true,
+			         border : false,
+					 rownumbers: true,
+					 animate: false,
+					 dnd: true,
+					 selectOnCheck:true,
+					 checkOnSelect:true,
+					 idField: 'XTQXID',
+					 treeField: 'QXMC'
+			     ">
+            <thead>
+            <tr>
+                <th data-options="field:'QXMC',sortable:true" width="220px">权限名称</th>
+                <th data-options="field:'QXDM',sortable:true" width="100px">权限代码</th>
+                <th data-options="field:'GNSM',sortable:true" width="100px">功能说明</th>
+                <!-- 			            <th data-options="field:'XH',sortable:true" width="100px">序号</th> -->
+                <th data-options="field:'MKBZ',sortable:true,align:'center', formatter: formatType" width="100px">类型</th>
+                <th data-options="field:'URL',sortable:true" width="280px">访问地址</th>
+                <th data-options="field:'BZ',sortable:true" width="110px">备注</th>
+                <th data-options="field:'OPERATION_BTN',align:'left', formatter: formatOperationBtn" width="150px">操作</th>
+                <th data-options="field:'XTQXID',checkbox : true" width="100px">系统权限ID</th>
+                <!--
+                <th data-options="field:'CSM',sortable:true" width="100px">参数名</th>
+                <th data-options="field:'CSZ',sortable:true" width="100px">参数值</th>
+                <th data-options="field:'HELPID',sortable:true" width="100px">帮助ID</th>
+                <th data-options="field:'HELPNAME',sortable:true" width="100px">帮助名称</th>
+                <th data-options="field:'ZYQXBM',sortable:true" width="100px">资源权限编码</th>
+                <th data-options="field:'ICON',sortable:true" width="100px">图标</th>
+                <th data-options="field:'WORKGROUP',sortable:true" width="100px">工作组</th>
+                <th data-options="field:'QXZ',sortable:true" width="100px">权限值</th>
+                <th data-options="field:'YXBZ',sortable:true" width="100px">有效标志</th>
+                <th data-options="field:'DATAINSERTER',sortable:true" width="100px">录入人</th>
+                <th data-options="field:'INSERTDATE',sortable:true" width="100px">录入日期</th>
+                <th data-options="field:'CZR',sortable:true" width="100px">操作人</th>
+                <th data-options="field:'CZRQ',sortable:true" width="100px">操作日期</th>
+                 -->
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+<div id="win" class="easyui-dialog" title="标题" buttons="#dlg-buttons"
+     data-options="modal:true,closed:true,border:'thin',size:'b',height:400">
+    <form id="operForm" class="vst-form" method="post" enctype="multipart/form-data">
+        <div class="lineDiv">
+            <span class="vst-form-span">权限代码</span>
+            <input name="code" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv no-margin">
+            <span class="vst-form-span">权限名称</span>
+            <input name="name" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">上级权限</span>
+            <input id="parentId" name="parentId" class="easyui-combotree" data-options="required:false,err:VST.validateErr, panelMaxHeight: 350">
+        </div>
+        <div class="lineDiv no-margin">
+            <span class="vst-form-span">功能说明</span>
+            <input id="description" name="description" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">序号</span>
+            <input id="orderNumber" name="orderNumber" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv no-margin">
+            <span class="vst-form-span">类别</span>
+            <select	id="type" name="type" class="easyui-combobox" data-options="required:true,err:VST.validateErr, panelHeight:'auto'">
+                <option value="1">目录</option>
+                <option value="2">模块</option>
+                <option value="3">功能级</option>
+                <option value="4">按钮</option>
+            </select>
+        </div>
+        <div id="datasourceDiv" class="lineDiv" >
+            <span class="vst-form-span">数据源</span>
+            <select vst-combox="DATASOURCE" id="datasource" name="datasource" edit=false></select>
+        </div>
+        <!--
+        <br>
+        <div class="lineDiv">
+            <span class="vst-form-span">权限值&nbsp;&nbsp;&nbsp;</span>
+            <input id="permissionValue" name="permissionValue" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr" style="width:300px;">
+        </div>
+         -->
+        <div class="lineDiv">
+            <span class="vst-form-span">访问地址</span>
+            <input id="url" name="url" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <!--
+        <div class="lineDiv">
+            <span class="vst-form-span">图标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <input id="icon" name="icon" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr" style="width:300px;">
+        </div>
+         -->
+        <div class="lineDiv">
+            <span class="vst-form-span">工作组</span>
+            <input id="workGroup" name="workGroup" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+        <div class="lineDiv">
+            <span class="vst-form-span">有效标志</span>
+            <select	id="validFlag" name="validFlag" class="easyui-combobox" data-options="required:true,err:VST.validateErr, panelHeight:'auto'">
+                <option value="1">有效</option>
+                <option value="0">无效</option>
+            </select>
+        </div>
+        <div class="lineDiv no-margin">
+            <span class="vst-form-span">备注信息</span>
+            <input id="memo" name="memo" class="easyui-validatebox easyui-textbox" data-options="required:true,err:VST.validateErr">
+        </div>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <button type="button" onclick="$('#win').dialog('close')" class="btn vbtn">取消</button>
+    <button type="button" onclick="save()" class="btn vbtn">保存</button>
+</div>
+
+<script>
+    $('#parentId').combotree({
+        url: 'basic/system/resource/selectCombobox',
+        parentField: "_parentId",
+        idFiled: "XTQXID",
+        textFiled: "QXMC",
+        loadFilter: function(data, parent){
+            var opt = $(this).data().tree.options;
+            var idFiled, textFiled, parentField;
+            if (opt.parentField) {
+                idFiled = opt.idFiled || 'id';
+                textFiled = opt.textFiled || 'text';
+                parentField = opt.parentField;
+
+                var i, l, treeData = [], tmpMap = [];
+
+                for (i = 0, l = data.length; i < l; i++) {
+                    tmpMap[data[i][idFiled]] = data[i];
+                }
+
+                for (i = 0, l = data.length; i < l; i++) {
+                    if (tmpMap[data[i][parentField]] && data[i][idFiled] != data[i][parentField]) {
+                        if (!tmpMap[data[i][parentField]]['children'])
+                            tmpMap[data[i][parentField]]['children'] = [];
+                        data[i]['id'] = data[i][idFiled];
+                        data[i]['text'] = data[i][textFiled];
+                        tmpMap[data[i][parentField]]['children'].push(data[i]);
+                    } else {
+                        data[i]['id'] = data[i][idFiled];
+                        data[i]['text'] = data[i][textFiled];
+                        treeData.push(data[i]);
+                    }
+                }
+                //alert(JSON.stringify(treeData));
+                return treeData;
+            }
+            return data;
+        }
+    });
+
+    function formatType(val,row){
+        if (val == '1') {
+            return '目录';
+        } else if (val == '2') {
+            return '模块';
+        } else if (val =='3') {
+            return '功能级';
+        } else if (val == '4') {
+            return '按钮';
+        } else {
+            return val;
+        }
+    }
+
+    function formatOperationBtn(val, row, index){
+        var btns = '';
+        var btnAdd = '';
+        var btnDelete = '';
+
+        btnAdd = '<a class="datagrid-operate add" title="添加" href="javascript:void(0)" onclick="add('+ "'" + row.XTQXID + "'," + "'" + row.MKBZ + "'"+')"></a>';
+        // 模块不允许添加子资源
+        if(row.MKBZ == '4') {
+            btnAdd = '';
+        }
+        btns += btnAdd;
+        btns += '<a class="datagrid-operate edit" title="编辑" href="javascript:void(0)" onclick="edit(\''+row.XTQXID+'\')"></a>';
+
+        btnDelete = '<a class="datagrid-operate remove" title="删除" href="javascript:void(0)" onclick="removeOnly(\''+row.XTQXID+'\')"></a>';
+        // 不允许删除根节点
+        var root = $('#treegrid').treegrid('getRoot');
+        if(row.XTQXID == root.XTQXID) {
+            btnDelete = '';
+        }
+        btns += btnDelete;
+
+        return btns;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="meta">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="北控伟仕VSTA平台"/>
+<meta name="Keywords" content="vstsoft 北控 伟仕  VSTA"/>
+<meta name="author" content="vstsoft"/>
+<base th:href="${basePath}" >
+
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+<link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+<link rel="bookmark" th:href="@{/favicon.ico}" type="image/x-icon" />
+<!-- 样式引入 -->
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/easyui/themes/gray/easyui.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/easyui/themes/icon.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/customScrollbar/jquery.mCustomScrollbar.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/font-awesome/css/font-awesome.min.css}"/>
+<!-- 时间轴样式引入 -->
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui/external/history/css/history.css}"/>
+<!-- theme -->
+<link rel="stylesheet" type="text/css" id="vstuiTheme" name="vstui-theme" th:href="${themeLink}"/>
+
+<!-- jquety、easyui -->
+<script type="application/javascript" th:src="@{/plugins/basic/jquery-1.12.4.min.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/easyui/jquery.easyui.min.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/easyui/locale/easyui-lang-zh_CN.js}"></script>
+<!-- 自定义插件、扩展 ，先引入options.js-->
+<script type="application/javascript" th:src="@{/js/options.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/basic/vst-vsta.min.js}"></script>
+<!-- 三方插件 -->
+<script type="application/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/echarts/echarts.min.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/jQuery-Autocomplete/jquery.autocomplete.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/jquery-form/jquery.form.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/js-cookie/js.cookie.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/momentJs/moment.min.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/jquery.jdirk.js}"></script>
+<script type="application/javascript" th:src="@{/js/easyui.validate.custom.rules.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/jeasyui.extensions.validatebox.rules.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/ueditor/ueditor.config.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/ueditor/ueditor.all.min.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/ueditor/lang/zh-cn/zh-cn.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/fullscreen/mrk.fullscreen.js}"></script>
+<script type="application/javascript" th:src="@{/plugins/laydate/laydate.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var basePath = /*[[${basePath}]]*/;
+    var resourcePath = /*[[${resourcePath}]]*/;
+    var path = resourcePath;
+    /*]]>*/
+    var dmList = {};
+    var dm = {};
+    if(window.top != window){
+        dmList = window.top.dmList;
+        dm = window.top.dm;
+    }
+    $(function(){
+//		全局点击事件
+        document.addEventListener("click", function(e){
+            Common.dispatchEvent(top.window,"globalClick",{originEvent:e},false);
+        },true);
+    });
+</script>
+</head>
+</html>

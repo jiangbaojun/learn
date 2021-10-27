@@ -1,6 +1,0 @@
-/*gecko内核浏览器专用样式，例如Firefox*/
-
-/*工具栏浮动后，向右偏移，此处强制不偏移（临时调整）*/
-.edui-editor-toolbarbox.edui-default{
-    left: 0 !important;
-}

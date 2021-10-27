@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 /target/
+**/target/
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 

@@ -16,6 +16,7 @@
         <module>elastaicsearchClient</module>
         <module>asyncMvc</module>
         <module>rabbitmqDemo</module>
+        <module>thread-demo</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -23,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
+        <spring.boot.version>2.4.6</spring.boot.version>
         <junit.version>4.13</junit.version>
         <mybatis.starter.version>2.1.1</mybatis.starter.version>
         <jackson-version>2.11.0</jackson-version>

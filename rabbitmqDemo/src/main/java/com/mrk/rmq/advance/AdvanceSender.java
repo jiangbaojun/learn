@@ -97,7 +97,8 @@ public class AdvanceSender {
      */
     @RequestMapping("/send32")
     public void t32(){
-        rabbitTemplate.setReturnCallback(myReturnsCallback);
+        rabbitTemplate.setConfirmCallback(myConfirmCallback);
+        rabbitTemplate.setReturnsCallback(myReturnsCallback);
 //        rabbitTemplate.convertAndSend("AdvanceExchange","adv.t3","我是String类型消息");
         //模拟错误
         rabbitTemplate.convertAndSend("AdvanceExchange","adv.notExist","我是String类型消息");
@@ -109,7 +110,7 @@ public class AdvanceSender {
     @RequestMapping("/send4")
     public void t4(){
         rabbitTemplate.setConfirmCallback(myConfirmCallback);
-        rabbitTemplate.setReturnCallback(myReturnsCallback);
+        rabbitTemplate.setReturnsCallback(myReturnsCallback);
         rabbitTemplate.convertAndSend("AdvanceExchange","adv.t4","我是send4消息");
     }
 

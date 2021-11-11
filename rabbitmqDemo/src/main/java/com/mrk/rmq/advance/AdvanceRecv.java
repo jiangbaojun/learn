@@ -50,8 +50,12 @@ public class AdvanceRecv {
 
     /**
      * 消息ack确认
-     * 注意，这个ack回执，并不是针对发送端，而是针对rabbitmq服务。
+     * 注意，这个ack回执，并不是针对发送端，而是针对rabbitmq服务。发送到并不会知晓
+     * 配置spring.rabbitmq.listener.simple.retry.enabled=true，开启手动ack
      * 如果指定手动ack，但是却没有进行确认，查看队列消息状态，会发现有消息处于unacked状态，消息会进行重发,通过spring.rabbitmq.listener.direct.retry进行设置
+     * 调用basicAck会消费消息。消息将从队列删除
+     * 调用basicReject、basicNack也会消费消息，通过requeue参数指明是否需要将消息放回队列，如果放回队列将会重试
+     * 监听方法抛出异常，消息会被放回队列，进行重试
      */
     @RabbitListener(
         bindings = @QueueBinding(
@@ -62,13 +66,15 @@ public class AdvanceRecv {
     )
     public void t4(String msg, Channel channel, Message message) throws IOException {
         try {
-            System.out.println("AdvanceQueue_t4:"+msg);
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+            System.out.println("AdvanceQueue_t4:"+message.getMessageProperties().getDeliveryTag()+":"+msg);
 //            int a = 3/0;
+            //如果此处不确认，那么消息处于unacked状态，下次启动，会重发消息。
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
-            channel.basicNack(message.getMessageProperties().getDeliveryTag(),
-                    false, false);
-            e.printStackTrace();
+//            channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
+            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
+//            e.printStackTrace();
+            throw e;
         }
     }
 

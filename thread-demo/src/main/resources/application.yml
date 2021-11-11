@@ -6,15 +6,6 @@ spring:
 spring:
   # dev环境
   profiles: dev
-  # 前端thymeleaf模板配置
-  thymeleaf:
-    enabled: true
-    cache: false
-    encoding: UTF-8
-    mode: HTML
-    suffix: .html
-    # 模板文件存放位置
-    prefix: classpath:/templates/
 management:
   endpoints:
     web:

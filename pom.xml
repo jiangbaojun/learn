@@ -16,6 +16,8 @@
         <module>elastaicsearchClient</module>
         <module>asyncMvc</module>
         <module>rabbitmqDemo</module>
+        <module>generatorDemo</module>
+        <module>websocketDemo</module>
         <module>thread-demo</module>
     </modules>
     <packaging>pom</packaging>

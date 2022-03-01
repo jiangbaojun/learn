@@ -19,7 +19,7 @@ if (!isocxIE) {
 	document.write("<script for='bjcactrl' event='OnUsbkeyChange' language='javascript'> ChangeDrivers();</script >");
 }
 function checkBrowser() {
-  
+
     if (window.location.href.indexOf('111.198.186.110') != -1) {
         ip = "111.198.186.110";
     }
@@ -140,7 +140,7 @@ function validatTicketEx(appid, homepage) {
     if (location.search != "")
         baseUrl = (/[?&]webChannelBaseUrl=([A-Za-z0-9\-:/\.]+)/.exec(location.search)[1]);
     else
-        baseUrl = "ws://localhost:12345";
+        baseUrl = "rmq://localhost:12345";
     var socket = new WebSocket(baseUrl);
     socket.onclose = function () {
         console.error("web channel closed");
@@ -148,12 +148,12 @@ function validatTicketEx(appid, homepage) {
     socket.onerror = function (error) {
         console.error("web channel error: " + error);
     };
-    
+
     socket.onopen = function () {
         new QWebChannel(socket, function (channel) {
             window.USERINFOJSON = channel.objects.USERINFOJSON;
             var ticket = document.getElementById("hdTicket").value;
-			
+
             if (ticket == '') {
                 alert('非法登录系统1');
                 window.location.href = homepage;
@@ -211,7 +211,7 @@ function validatTicket(appid) {
     if (isocxIE) {
         try {
             var ticket = document.getElementById("hdTicket").value;
-          
+
             if (ticket == '') {
                 op = -1;
             } else {
@@ -219,7 +219,7 @@ function validatTicket(appid) {
                 var rs = plugin.CheckTicketReturnJsonFun(appid, ticket);
                 if (rs != "") {
                     op = 0;
-                } else {    
+                } else {
                     op = -2;
                 }
             }
@@ -270,7 +270,7 @@ function certLogout() {
 
 //关闭页面
 function closePageForm(browserType, version, homepage) {
-	
+
     if (browserType == "IE") {
         var plugin = document.getElementById("BhoPlugin");
         var userlist = plugin.SOF_GetUserList();
@@ -290,8 +290,8 @@ function closePageForm(browserType, version, homepage) {
                 }
             }
         });
-    } 
-    
+    }
+
 }
 
 function closeWindows() {
@@ -569,15 +569,15 @@ function alertValidDay(cert) {
 
 
 // 日期类型格式化方法的定义
-Date.prototype.Format = function (fmt) { //author: meizz 
+Date.prototype.Format = function (fmt) { //author: meizz
     var o = {
-        "M+": this.getMonth() + 1,                 //月份 
-        "d+": this.getDate(),                    //日 
-        "h+": this.getHours(),                   //小时 
-        "m+": this.getMinutes(),                 //分 
-        "s+": this.getSeconds(),                 //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds()             //毫秒 
+        "M+": this.getMonth() + 1,                 //月份
+        "d+": this.getDate(),                    //日
+        "h+": this.getHours(),                   //小时
+        "m+": this.getMinutes(),                 //分
+        "s+": this.getSeconds(),                 //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds()             //毫秒
     };
     if (/(y+)/.test(fmt))
         fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -654,7 +654,7 @@ function GetList_pnp(strListID) {
 
 //业务页面响应拔Key事件
 function ChangeDrivers() {
-	
+
 	if(top.location!=self.location)
 	{
 		top.opener = null;

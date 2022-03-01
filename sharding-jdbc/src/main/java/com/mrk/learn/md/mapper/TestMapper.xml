@@ -11,4 +11,13 @@
         select * from t_order
     </select>
 
+    <insert id="addUser" parameterType="map">
+        INSERT INTO t_user (id, name)
+        VALUES (#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="queryUsers" resultType="map">
+        select * from t_user
+    </select>
+
 </mapper>

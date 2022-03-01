@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 数据源连接配置
+ * 数据源连接配置（自主解析，未使用）
  */
 @ConfigurationProperties("datasource")
 public class MrkDataSources {

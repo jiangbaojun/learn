@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/promise-polyfill/dist/polyfill.min.js"></script>
+    <!--lib uses jszip-->
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="docx-preview.min.js"></script>
+    <script>
+        function readAsArrayBuffer(){
+            var file = document.getElementById("file").files[0];
+            var reader = new FileReader();
+            //将文件以二进制形式读入页面
+            reader.readAsArrayBuffer(file);
+            reader.onload=function(f){
+                var docData=this.result;
+                docx.renderAsync(docData, document.getElementById("container"))
+                    .then(x => console.log("docx: finished"));
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="file" id="file" onchange="readAsArrayBuffer()"/>
+...
+<div id="container"></div>
+...
+</body>
+</html>

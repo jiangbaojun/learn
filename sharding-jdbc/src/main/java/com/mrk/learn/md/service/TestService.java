@@ -20,4 +20,12 @@ public class TestService {
     public List<Map<String, Object>> queryOrder() {
         return testMapper.queryOrder();
     }
+
+    public int addUser(Map<String, Object> params) {
+        return testMapper.addUser(params);
+    }
+
+    public List<Map<String, Object>> queryUsers() {
+        return testMapper.queryUsers();
+    }
 }

@@ -10,4 +10,8 @@ public interface TestMapper {
 
     int addOrders(Map<String, Object> params);
     List<Map<String,Object>> queryOrder();
+
+    int addUser(Map<String, Object> params);
+
+    List<Map<String, Object>> queryUsers();
 }

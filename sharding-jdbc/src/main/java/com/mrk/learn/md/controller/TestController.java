@@ -34,4 +34,16 @@ public class TestController {
         return testService.addOrders(params);
     }
 
+    @RequestMapping("/queryUsers")
+    public List<Map<String,Object>> queryUsers(HttpServletRequest request){
+        return testService.queryUsers();
+    }
+    @RequestMapping("/addUser")
+    public int addUser(HttpServletRequest request){
+        Map<String,Object> params = new HashMap<>();
+        params.put("id", Long.parseLong(request.getParameter("id")));
+        params.put("name", "1");
+        return testService.addUser(params);
+    }
+
 }

@@ -22470,7 +22470,7 @@ var taskProto = Task.prototype;
 /**
  * @param {Object} performArgs
  * @param {number} [performArgs.step] Specified step.
- * @param {number} [performArgs.skip] Skip customer perform call.
+ * @param {number} [performArgs.skip] Skip annotation perform call.
  * @param {number} [performArgs.modBy] Sampling window size.
  * @param {number} [performArgs.modDataCount] Sampling count.
  */

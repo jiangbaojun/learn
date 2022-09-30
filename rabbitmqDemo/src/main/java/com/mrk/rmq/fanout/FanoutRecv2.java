@@ -23,7 +23,7 @@ public class FanoutRecv2 {
             )
     )
     public void receive(User user) {
-        System.out.println("customer bind"+user);
+        System.out.println("annotation bind"+user);
     }
 
     /**
@@ -36,6 +36,6 @@ public class FanoutRecv2 {
             )
     )
     public void receiveTemp(User user) {
-        System.out.println("temp customer bind"+user);
+        System.out.println("temp annotation bind"+user);
     }
 }

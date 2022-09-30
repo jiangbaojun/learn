@@ -1,0 +1,51 @@
+spring:
+  profiles:
+    active: dev
+---
+server:
+  port: 8080
+# spring配置
+spring:
+  # dev环境
+  config:
+    activate:
+      on-profile: dev
+  #activemq集成springboot基础用法配置。自定义配置详见：annotation.message
+#  activemq:
+#    broker-url: tcp://artemis-01.chengdudev.edetekapps.cn:61618
+#    broker-url: tcp://artemis-02.chengdudev.edetekapps.cn:61618
+#    broker-url: "failover:(tcp://artemis-01.chengdudev.edetekapps.cn:61618,tcp://artemis-02.chengdudev.edetekapps.cn:61618)"
+#    user: admin
+#    password: admin
+#  jms:
+#    pub-sub-domain: true
+
+testVar:
+  xyz: xyz
+
+#自定义封装配置
+customer:
+  message:
+    #    broker-url: tcp://artemis-01.chengdudev.edetekapps.cn:61618
+    #    broker-url: tcp://artemis-02.chengdudev.edetekapps.cn:61618
+    broker-url: "failover:(tcp://artemis-01.chengdudev.edetekapps.cn:61618,tcp://artemis-02.chengdudev.edetekapps.cn:61618)"
+
+  # 前端thymeleaf模板配置
+  thymeleaf:
+    enabled: true
+    cache: false
+    encoding: UTF-8
+    mode: HTML
+    suffix: .html
+    # 模板文件存放位置
+    prefix: classpath:/templates/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true

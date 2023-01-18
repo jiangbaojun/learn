@@ -12,14 +12,14 @@ import java.util.Map;
  *
  * @author Jiaju Zhuang
  */
-public class DemoDataListener extends AnalysisEventListener<DemoData> {
+public class CellDemoDataListener extends AnalysisEventListener<CellDemoData> {
     /**
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 5;
-    List<DemoData> list = new ArrayList<DemoData>();
+    List<CellDemoData> list = new ArrayList<>();
 
-    public DemoDataListener() {
+    public CellDemoDataListener() {
     }
 
     /**
@@ -34,7 +34,7 @@ public class DemoDataListener extends AnalysisEventListener<DemoData> {
      * 这个每一条数据解析都会来调用
      */
     @Override
-    public void invoke(DemoData data, AnalysisContext context) {
+    public void invoke(CellDemoData data, AnalysisContext context) {
         list.add(data);
     }
 

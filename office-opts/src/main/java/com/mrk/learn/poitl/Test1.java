@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 /**
  * poitl示例
- * 注意，woed模板中变量名称两端不能有空格，例如{{ title }}是不能识别的，要写成{{title}}
+ * 注意，word模板中变量名称两端不能有空格，例如{{ title }}是不能识别的，要写成{{title}}
  * http://deepoove.com/poi-tl/#_getting_started
  */
 public class Test1 {

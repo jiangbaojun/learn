@@ -51,8 +51,9 @@ public class MessageAnnotationUtil {
                 Object param;
                 if(String.class.isAssignableFrom(type)){
                     param = JSON.toJSONString(dataChange.getData());
+                }else{
+                    param = JSON.parseObject(JSON.toJSONString(dataChange.getData()), type);
                 }
-                param = JSON.parseObject(JSON.toJSONString(dataChange.getData()), type);
                 method.invoke(bean, param);
             }else{
                 System.out.println("无法回调");

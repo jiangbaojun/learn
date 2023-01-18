@@ -8,7 +8,7 @@ import javax.jms.TextMessage;
 
 /**
  *
- * dlq 私信队列 接收
+ * dlq 死信队列 接收
  */
 @Component
 public class DLQRecv {

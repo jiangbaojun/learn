@@ -20,6 +20,7 @@
         <module>generatorDemo</module>
         <module>websocketDemo</module>
         <module>thread-demo</module>
+        <module>rules</module>
     </modules>
     <packaging>pom</packaging>
 

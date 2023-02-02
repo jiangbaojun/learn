@@ -1,0 +1,25 @@
+{
+  "appToken": "b414086531524fb0bc14f757346fec92",
+  "openUrl": "http://123.57.250.205:7700/api",
+  "isReplace":true,
+  "replace":true,
+  "apiGroups": [
+    {
+      "start": "20220115",
+      "end": "20220215",
+      "name": "一月"
+    },{
+      "start": "20220215",
+      "end": "20220315",
+      "name": "二月"
+    }
+  ],
+  "dataDictionaries": [
+    {
+      "title": "商品类别",
+      "enumClassName": "com.mrk.smart.TypeEnum",
+      "codeField": "code",
+      "descField": "desc"
+    }
+  ]
+}

@@ -21,6 +21,7 @@
         <module>websocketDemo</module>
         <module>thread-demo</module>
         <module>rules</module>
+        <module>smartDocDemo</module>
     </modules>
     <packaging>pom</packaging>
 

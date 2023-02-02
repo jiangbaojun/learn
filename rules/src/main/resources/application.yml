@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: dev
+---
+# spring配置
+spring:
+  # dev环境
+  profiles: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true

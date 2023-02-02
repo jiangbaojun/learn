@@ -62,6 +62,24 @@ public class WriteTest {
         }
         excelWriter.finish();
     }
+
+    @Test
+    public void multiSheetWrite2() {
+        String fileName = "src/main/resources/easyexcel"+ File.separator+"write" + System.currentTimeMillis() + ".xlsx";
+        ExcelWriter excelWriter = EasyExcel.write(fileName, DemoData.class).build();
+        WriteSheet writeSheet = EasyExcel.writerSheet(0, "模板0").build();
+        WriteSheet writeSheet1 = EasyExcel.writerSheet(1, "模板1").build();
+
+        excelWriter.write( data(10), writeSheet);
+        excelWriter.write( data(10), writeSheet1);
+        excelWriter.write( data(10), writeSheet1);
+        excelWriter.write( data(10), writeSheet);
+        excelWriter.write( data(10), writeSheet1);
+        excelWriter.write( data(10), writeSheet);
+        excelWriter.write( data(10), writeSheet);
+
+        excelWriter.finish();
+    }
     @Test
     public void writeWithStyle() {
         // 头的策略

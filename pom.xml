@@ -22,6 +22,7 @@
         <module>thread-demo</module>
         <module>rules</module>
         <module>smartDocDemo</module>
+        <module>spring-demo</module>
     </modules>
     <packaging>pom</packaging>
 

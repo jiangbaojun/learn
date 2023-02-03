@@ -1,4 +1,4 @@
-package com.example.thread.qlexpress;
+package com.example.qlexpress;
 
 import com.ql.util.express.DefaultContext;
 import com.ql.util.express.ExpressRunner;
@@ -7,10 +7,10 @@ public class Demo1 {
 
     public static void main(String[] args) throws Exception {
         Demo1 demo1 = new Demo1();
-        demo1.t2();
+        demo1.test2();
     }
 
-    private void t2() throws Exception {
+    public void test2() throws Exception {
         ExpressRunner runner = new ExpressRunner();
         DefaultContext<String, Object> context = new DefaultContext<String, Object>();
         context.put("a", 1);
@@ -20,7 +20,7 @@ public class Demo1 {
         Object r = runner.execute(express, context, null, true, false);
         System.out.println(r);
     }
-    private void t1() throws Exception {
+    public void test1() throws Exception {
         ExpressRunner runner = new ExpressRunner();
         DefaultContext<String, Object> context = new DefaultContext<String, Object>();
         context.put("a", 1);

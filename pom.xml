@@ -23,6 +23,7 @@
         <module>rules</module>
         <module>smartDocDemo</module>
         <module>spring-demo</module>
+        <module>basic</module>
     </modules>
     <packaging>pom</packaging>
 

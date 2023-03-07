@@ -9,10 +9,25 @@ import org.junit.jupiter.api.Test;
 public class Demo2 {
 
     @Test
+    public void t3() {
+        DateTimeZone nflTz = DateTimeZone.forID("Canada/Newfoundland");
+        DateTime dateTime = new DateTime(2022,9,8,15,30,20);
+
+        DateTime nflDt = dateTime.withZone(nflTz);
+        System.out.println(dateTime);
+        System.out.println(nflDt);
+
+        DateTimeZone tz1 = DateTimeZone.forOffsetHoursMinutes(-2, -30);
+        DateTimeZone tz2 = DateTimeZone.forOffsetHoursMinutes(-3, -30);
+        System.out.println(dateTime.withZone(tz1));
+        System.out.println(dateTime.withZone(tz2));
+    }
+
+    @Test
     public void t2() {
         DateTimeZone newYorkTz = DateTimeZone.forID("America/New_York");
         DateTimeZone tokyoTz = DateTimeZone.forID("Asia/Tokyo");
-        DateTime dateTime = new DateTime(2022,5,8,15,30,20);
+        DateTime dateTime = new DateTime(2022,1,8,15,30,20);
 
         DateTime newYorkDt = dateTime.withZone(newYorkTz);
         DateTime tokyoDt = newYorkDt.withZone(tokyoTz);

@@ -33,7 +33,7 @@ public class Demo {
 
     /**
      * 设置默认时区
-     * API方式： 强制将时区设为北京时区TimeZone.setDefault(TimeZone.getDefault().getTimeZone("GMT+8"));
+     * API方式： 强制将时区设为北京时区TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
      * JVM参数方式：-Duser.timezone=GMT+8
      * 运维设置方式：将操作系统主机时区设置为北京时区，这是推荐方式，可以完全对开发者无感，也方便了运维统一管理
      */

@@ -8,10 +8,9 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class Demo {
+    public Demo() {
+    }
 
-    /**
-     * zoneId的列表是jre维护的一个文本文件，路径是你JDK/JRE的安装路径。地址在.\jre\lib目录的为未tzmappings的文本文件里
-     */
     @Test
     public void t1(){
         String[] availableIDs = TimeZone.getAvailableIDs();

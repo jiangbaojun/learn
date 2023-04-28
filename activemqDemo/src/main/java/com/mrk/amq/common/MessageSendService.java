@@ -12,23 +12,36 @@ public class MessageSendService {
     private MessageTemplate messageTemplate;
 
     /**
-     * 发布订阅消息
+     * 发布路由消息
+     * 相同系统，只有一个节点收到消息
      * @param destination 目标
      * @param data 数据
      * @date 2022/9/30 16:25
      */
-    public void sendPubSubMessage(String destination, Object data) {
-        messageTemplate.sendPubSubMessage(destination, getDataChange(data));
+    public void sendRoutingMessage(String destination, Object data) {
+        messageTemplate.sendRoutingMessage(destination, getDataChange(data));
+    }
+
+    /**
+     * 发布订阅消息
+     * 所有系统、所有节点都会收到消息
+     * @param destination 目标
+     * @param data 数据
+     * @date 2022/9/30 16:25
+     */
+    public void sendPublishMessage(String destination, Object data) {
+        messageTemplate.sendPublishMessage(destination, getDataChange(data));
     }
 
     /**
      * 发布点对点消息
+     * 无论系统，所有节点，只有一个节点收到消息
      * @param destination 目标
      * @param data 数据
      * @date 2022/9/30 16:25
      */
-    public void sendToPointMessage(String destination, Object data) {
-        messageTemplate.sendToPointMessage(destination, getDataChange(data));
+    public void sendPointMessage(String destination, Object data) {
+        messageTemplate.sendPointMessage(destination, getDataChange(data));
     }
 
 

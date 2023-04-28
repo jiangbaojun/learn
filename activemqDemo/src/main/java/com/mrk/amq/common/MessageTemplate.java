@@ -6,7 +6,9 @@ package com.mrk.amq.common;
  */
 public interface MessageTemplate {
 
-    void sendToPointMessage(String destination, Object data);
+    void sendPointMessage(String destination, Object data);
 
-    void sendPubSubMessage(String destination, Object data);
+    void sendPublishMessage(String destination, Object data);
+
+    void sendRoutingMessage(String destination, Object data);
 }

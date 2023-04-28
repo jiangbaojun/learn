@@ -1,6 +1,7 @@
 package com.mrk.amq.common.util;
 
 import com.alibaba.fastjson.JSON;
+import com.mrk.amq.common.constant.MessageConstant;
 import com.mrk.amq.properties.DataChange;
 import com.mrk.amq.common.annotation.MyJmsListener;
 import com.mrk.amq.common.annotation.MyJmsListeners;
@@ -9,16 +10,17 @@ import org.springframework.beans.BeansException;
 import org.springframework.core.MethodIntrospector;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * 消息注解工具
+ * 消息工具
  * @author baojun.jiang
  * @date 2022-09-30 10:12
  */
-public class MessageAnnotationUtil {
+public class MessageUtil {
 
     /**
      * 解析bean中消息注解
@@ -42,24 +44,31 @@ public class MessageAnnotationUtil {
      * @param msg 消息
      * @date 2022/9/30 15:50
      */
-    public static void invokeListen(Object bean, Method method, String msg) throws BeansException {
-        try {
-            Class<?>[] parameterTypes = method.getParameterTypes();
-            if(parameterTypes.length==1){
-                Class<?> type = parameterTypes[0];
-                DataChange dataChange = JSON.parseObject(msg, DataChange.class);
-                Object param;
-                if(String.class.isAssignableFrom(type)){
-                    param = JSON.toJSONString(dataChange.getData());
-                }else{
-                    param = JSON.parseObject(JSON.toJSONString(dataChange.getData()), type);
-                }
-                method.invoke(bean, param);
+    public static void invokeListen(Object bean, Method method, String msg) throws BeansException, InvocationTargetException, IllegalAccessException {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        if(parameterTypes.length==1){
+            Class<?> type = parameterTypes[0];
+            DataChange dataChange = JSON.parseObject(msg, DataChange.class);
+            Object param;
+            if(String.class.isAssignableFrom(type)){
+                param = JSON.toJSONString(dataChange.getData());
             }else{
-                System.out.println("无法回调");
+                param = JSON.parseObject(JSON.toJSONString(dataChange.getData()), type);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            method.invoke(bean, param);
+        }else{
+            System.out.println("无法回调");
         }
     }
+
+    /**
+     * 队列统一前缀
+     * @return java.lang.String
+     * @date 2023/4/28 17:23
+     */
+    public static String getPrefix() {
+        return MessageConstant.COMMON_PREFIX+".";
+    }
+
+
 }

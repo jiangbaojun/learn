@@ -10,6 +10,8 @@ spring:
   config:
     activate:
       on-profile: dev
+  application:
+    name: activeMq-demo
   #activemq集成springboot基础用法配置。自定义配置详见：annotation.message
 #  activemq:
 #    broker-url: tcp://artemis-01.chengdudev.edetekapps.cn:61618

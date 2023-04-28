@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customer")
 public class CustomerSender {
 
-    private final String TOPIC_NAME = "my.annotation.test.topic";
-    private final String QUEUE_NAME = "my.annotation.test.queue";
-
-//    private final String TOPIC_NAME = "VirtualTopic.test2";
-//    private final String QUEUE_NAME = "Consumer.a.VirtualTopic.test2";
+    private final String POINT_NAME = "my.point";
+    private final String PUBLISH_NAME = "my.publish";
+    private final String ROUTING_NAME = "myRouting";
 
     @Autowired
     private MessageSendService messageSendService;
@@ -35,12 +33,20 @@ public class CustomerSender {
     public void sendMsg1(@RequestParam(value = "msg") String msg) {
         User user = new User(12,"点对点消息");
         System.out.println("发消息："+user);
-        messageSendService.sendToPointMessage(QUEUE_NAME, user);
+        messageSendService.sendPointMessage(POINT_NAME, user);
     }
-    @RequestMapping("/pubsub/send")
+
+    @RequestMapping("/publish/send")
     public void sendMsg2(@RequestParam(value = "msg") String msg) {
         User user = new User(12, "订阅消息");
         System.out.println("发消息："+user);
-        messageSendService.sendPubSubMessage(TOPIC_NAME, user);
+        messageSendService.sendPublishMessage(PUBLISH_NAME, user);
+    }
+
+    @RequestMapping("/routing/send")
+    public void sendMsg3(@RequestParam(value = "msg") String msg) {
+        User user = new User(12, "路由消息");
+        System.out.println("发消息："+user);
+        messageSendService.sendRoutingMessage(ROUTING_NAME, user);
     }
 }

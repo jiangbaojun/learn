@@ -1,5 +1,7 @@
 package com.mrk.amq.common.annotation;
 
+import com.mrk.amq.common.constant.MessageMode;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,6 +18,6 @@ public @interface MyJmsListener {
 
     String destination();
 
-     boolean pubSub() default false;
+    MessageMode mode() default MessageMode.POINT;
 
 }

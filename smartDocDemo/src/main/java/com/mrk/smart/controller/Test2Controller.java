@@ -30,6 +30,11 @@ public class Test2Controller implements ApiTestDef {
         return CommonResult.ok().setResult("ok");
     }
 
+    @PostMapping("/get/goods1")
+    public CommonResult<List<Goods>> getGoods1(@RequestParam("name") String name, @RequestParam("group") String group){
+        return CommonResult.ok().setResult("ok");
+    }
+
     /**
      * 测试接口
      * @apiNote 测试接口实现描述

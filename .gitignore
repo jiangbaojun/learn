@@ -19,6 +19,8 @@ HELP.md
 *.iws
 *.iml
 *.ipr
+.rebel.xml
+**/.rebel.xml
 /out/
 
 ### NetBeans ###

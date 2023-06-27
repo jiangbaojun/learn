@@ -1,10 +1,11 @@
 package com.mrk.amq.common.util;
 
 import com.alibaba.fastjson.JSON;
-import com.mrk.amq.common.constant.MessageConstant;
-import com.mrk.amq.properties.DataChange;
 import com.mrk.amq.common.annotation.MyJmsListener;
 import com.mrk.amq.common.annotation.MyJmsListeners;
+import com.mrk.amq.common.constant.MessageConstant;
+import com.mrk.amq.properties.DataChange;
+import com.mrk.amq.properties.FromModel;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.core.MethodIntrospector;
@@ -45,19 +46,76 @@ public class MessageUtil {
      * @date 2022/9/30 15:50
      */
     public static void invokeListen(Object bean, Method method, String msg) throws BeansException, InvocationTargetException, IllegalAccessException {
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        if(parameterTypes.length==1){
-            Class<?> type = parameterTypes[0];
-            DataChange dataChange = JSON.parseObject(msg, DataChange.class);
-            Object param;
-            if(String.class.isAssignableFrom(type)){
-                param = JSON.toJSONString(dataChange.getData());
-            }else{
-                param = JSON.parseObject(JSON.toJSONString(dataChange.getData()), type);
-            }
-            method.invoke(bean, param);
+        Object[] parameterValue = getParameterValue(method, msg);
+        if(parameterValue==null){
+            method.invoke(bean);
         }else{
-            System.out.println("无法回调");
+            method.invoke(bean, parameterValue);
+        }
+    }
+
+    /**
+     * 获得参数。
+     * 填充参数值，第一个默认为床底的参数，第二个以后的参数自动填充。
+     * 目前只识别FromModel类型，其余默认空值
+     * @return
+     */
+    private static Object[] getParameterValue(Method method,String msg) {
+        int paramCount = method.getParameterCount();
+        if(paramCount==0){
+            return null;
+        }
+        DataChange dataChange = JSON.parseObject(msg, DataChange.class);
+        Class<?>[] paramTypes = method.getParameterTypes();
+        Object[] params = new Object[paramCount];
+        for(int i=0;i<paramCount;i++){
+            Class<?> type = paramTypes[i];
+            if(i==0){
+                //第一个参数是传递参数，特殊解析
+                params[i] = getFirstParam(type, dataChange);
+                continue;
+            }
+            if(FromModel.class.getName().equals(type.getName())){
+                FromModel fromModel = new FromModel();
+                fromModel.setStudyId(dataChange.getStudyId());
+                fromModel.setSponsorId(dataChange.getSponsorId());
+                fromModel.setSystemId(dataChange.getSystemId());
+                params[i] = fromModel;
+                continue;
+            }
+            if("boolean".equals(type.getName())){
+                params[i] = false;
+            }else if("char".equals(type.getName())){
+                params[i] = '\u0000';
+            }else if("byte".equals(type.getName())){
+                params[i] = 0;
+            }else if("short".equals(type.getName())){
+                params[i] = 0;
+            }else if("int".equals(type.getName())){
+                params[i] = 0;
+            }else if("long".equals(type.getName())){
+                params[i] = 0L;
+            }else if("float".equals(type.getName())){
+                params[i] = 0.0f;
+            }else if("double".equals(type.getName())){
+                params[i] = 0.0d;
+            }else{
+                params[i] = null;
+            }
+        }
+        return params;
+    }
+
+    /**
+     * 解析传递参数，默认第一个参数
+     * @return java.lang.Object
+     * @date 2023/5/4 13:43
+     */
+    private static Object getFirstParam(Class<?> type, DataChange dataChange) {
+        if(String.class.isAssignableFrom(type)){
+            return JSON.toJSONString(dataChange.getData());
+        }else{
+            return JSON.parseObject(JSON.toJSONString(dataChange.getData()), type);
         }
     }
 

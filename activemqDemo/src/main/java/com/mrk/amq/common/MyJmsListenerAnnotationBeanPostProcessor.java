@@ -2,7 +2,6 @@ package com.mrk.amq.common;
 
 import com.mrk.amq.common.annotation.MyJmsListener;
 import com.mrk.amq.common.util.MessageUtil;
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.aop.framework.AopInfrastructureBean;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.BeansException;
@@ -31,8 +30,6 @@ public class MyJmsListenerAnnotationBeanPostProcessor implements Ordered, Merged
 
 	int LOWER_LEVEL = 100000;
 
-	@Autowired
-	private ActiveMQConnectionFactory connectionFactory;
 	@Autowired(required = false)
 	private AbstractMessageListenerProcessor abstractMessageListenerProcessor;
 

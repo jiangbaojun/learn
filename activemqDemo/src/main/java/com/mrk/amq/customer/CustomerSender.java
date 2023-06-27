@@ -34,6 +34,8 @@ public class CustomerSender {
         User user = new User(12,"点对点消息");
         System.out.println("发消息："+user);
         messageSendService.sendPointMessage(POINT_NAME, user);
+        //也可以传递数组
+        //messageSendService.sendPointMessage(POINT_NAME, new String[]{msg});
     }
 
     @RequestMapping("/publish/send")

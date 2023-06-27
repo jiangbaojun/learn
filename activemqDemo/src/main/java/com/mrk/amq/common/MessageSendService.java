@@ -55,7 +55,7 @@ public class MessageSendService {
     private String getDataChange(Object data) {
         DataChange dataChange = new DataChange();
         dataChange.setData(data);
-        dataChange.setSourceSystemId(1);
+        dataChange.setSystemId(1);
         dataChange.setStudyId(2);
         dataChange.setSponsorId(3);
         return JSON.toJSONString(dataChange);

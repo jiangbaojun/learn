@@ -2,6 +2,8 @@ spring:
   profiles:
     active: dev
 ---
+server:
+  port: 8070
 # spring配置
 spring:
   # dev环境

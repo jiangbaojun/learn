@@ -3,8 +3,6 @@ package com.mrk.amq.properties;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-
 /**
  * @ClassName DataChange
  * @Description: data change
@@ -14,10 +12,7 @@ import java.io.Serializable;
  **/
 @Data
 @Accessors(chain = true)
-public class DataChange<T> implements Serializable {
+public class DataChange<T> extends FromModel {
     private T data;
-    private Integer sourceSystemId;
-    private Integer sponsorId;
-    private Integer studyId;
 
 }

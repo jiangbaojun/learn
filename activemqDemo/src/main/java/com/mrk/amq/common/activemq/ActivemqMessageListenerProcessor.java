@@ -141,6 +141,8 @@ public class ActivemqMessageListenerProcessor extends AbstractMessageListenerPro
         }
         @Override
         public void onMessage(Message message) {
+            //此处扩展，是否当处理接收到的消息。例如本系统忽略等
+            //。。。。
             try {
                 if(message instanceof TextMessage){
                     TextMessage textMessage = (TextMessage) message;

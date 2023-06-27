@@ -3,6 +3,7 @@ package com.mrk.timezone;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
+import java.time.zone.ZoneRules;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -52,4 +53,21 @@ public class Demo2 {
         System.out.println(ZoneOffset.of("+20"));
     }
 
+    @Test
+    public void test7() {
+        TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
+        ZoneId zoneId = timeZone.toZoneId();
+        ZoneRules rules = zoneId.getRules();
+        ZoneOffset offset1 = rules.getOffset(LocalDateTime.of(LocalDate.of(2023, 6, 12),
+                LocalTime.of(7, 10, 20)));
+
+
+        TimeZone timeZone2 = TimeZone.getTimeZone("GMT+08:00");
+        ZoneId zoneId2 = timeZone2.toZoneId();
+        ZoneRules rules2 = zoneId2.getRules();
+        ZoneOffset offset2 = rules2.getOffset(LocalDateTime.of(LocalDate.of(2023, 6, 12),
+                LocalTime.of(7, 10, 20)));
+
+        System.out.println(1);
+    }
 }

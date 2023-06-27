@@ -1,6 +1,6 @@
 {
-  "appToken": "b414086531524fb0bc14f757346fec92",
-  "openUrl": "http://123.57.250.205:7700/api",
+  "openUrl": "http://nexus.chengdudev.edetekapps.cn:7700/api",
+  "appToken": "5784be82b4f94c62ad8f56a286e5c9d4",
   "isReplace":true,
   "replace":true,
   "apiGroups": [

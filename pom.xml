@@ -24,6 +24,7 @@
         <module>smartDocDemo</module>
         <module>spring-demo</module>
         <module>basic</module>
+        <module>translation</module>
     </modules>
     <packaging>pom</packaging>
 

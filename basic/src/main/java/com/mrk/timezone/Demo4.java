@@ -3,8 +3,10 @@ package com.mrk.timezone;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
+import java.util.Locale;
 
 public class Demo4 {
 
@@ -23,6 +25,27 @@ public class Demo4 {
         System.out.println(date1);
     }
 
+    /**
+     * 时区转换及夏令时
+     */
+    @Test
+    public void test191() {
+        ZoneId zoneId = ZoneId.of("America/New_York");
+
+        LocalDateTime dt = LocalDateTime.of(2020, 02, 12, 15, 20, 30);
+        ZonedDateTime defaultZoneDt = dt.atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTime = defaultZoneDt.withZoneSameInstant(zoneId);
+        System.out.println(dt);
+        System.out.println(defaultZoneDt);
+        System.out.println("=============================================================================");
+
+        System.out.println(zonedDateTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss");
+        System.out.println(zonedDateTime.format(formatter));
+        System.out.println(zonedDateTime.format(formatter.withZone(ZoneId.of("GMT+00:00"))));
+        System.out.println(zonedDateTime.format(formatter.withZone(ZoneId.of("GMT+00:00")).withLocale(Locale.US)));
+        System.out.println(zonedDateTime.format(formatter.withZone(ZoneId.of("GMT+08:00")).withLocale(Locale.CHINA)));
+    }
     /**
      * 时区转换及夏令时
      */

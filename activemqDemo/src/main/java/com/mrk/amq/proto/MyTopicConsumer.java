@@ -25,6 +25,7 @@ public class MyTopicConsumer {
         Topic topic = session.createTopic("my.ps.test.queue");
         // 创建消息接受者
         MessageConsumer consumer = session.createConsumer(topic);
+        //MessageConsumer consumer = session.createConsumer(topic, "mytag='5'");
         consumer.setMessageListener(new MessageListener() {
           @Override
           public void onMessage(Message msg) {

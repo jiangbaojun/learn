@@ -11,6 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 
+/***
+ * excel导出测试
+ */
 public class TestExport {
 
     public static void main(String[] args) throws IOException {
@@ -24,6 +27,7 @@ public class TestExport {
         ExportParams exportParams2 = new ExportParams();
         exportParams2.setType(ExcelType.XSSF);
         exportParams2.setSheetName("sheet2");
+        exportParams2.setDataHandler(new TestDateFieldDataHandler(Arrays.asList("列名称-0")));
         List<ExcelExportEntity> entityList = getEntityList();
         new ExcelExportService().createSheetForMap(workbook, exportParams2, entityList, getData1(entityList));
 
@@ -55,7 +59,7 @@ public class TestExport {
     private static List<ExcelExportEntity> getEntityList() {
         List<ExcelExportEntity> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            list.add(new ExcelExportEntity("key-"+i, "列名称-"+i));
+            list.add(new ExcelExportEntity("列名称-"+i, "key-"+i));
         }
         return list;
     }
@@ -65,11 +69,13 @@ public class TestExport {
      */
     private static List<Map<String,Object>> getData1(List<ExcelExportEntity> entityList) {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             Map<String, Object> map = new HashMap<>();
             for (ExcelExportEntity excelExportEntity : entityList) {
                 map.put(excelExportEntity.getKey().toString(), i);
             }
+            //第一列设置为Date值
+            map.put("key-0", new Date());
             list.add(map);
         }
         return list;

@@ -3,6 +3,7 @@ package com.mrk.learn.easypoi.excel;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.handler.impl.ExcelDataHandlerDefaultImpl;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
@@ -14,11 +15,16 @@ import java.util.stream.Collectors;
  */
 public class TestDateFieldDataHandler extends ExcelDataHandlerDefaultImpl {
 
-    private final Class<?> pojoClass;
-    private final Map<String, String[]> classNeedFieldMap = new HashMap();
+    private static final Map<String, String[]> classNeedFieldMap = new HashMap();
+    private Class<?> pojoClass;
+    private List<String> needHandleField;
 
     public TestDateFieldDataHandler(Class<?> pojoClass) {
         this.pojoClass = pojoClass;
+    }
+
+    public TestDateFieldDataHandler(List<String> needHandleField) {
+        this.needHandleField = needHandleField;
     }
 
     /**
@@ -29,6 +35,9 @@ public class TestDateFieldDataHandler extends ExcelDataHandlerDefaultImpl {
      */
     @Override
     public String[] getNeedHandlerFields() {
+        if(CollectionUtils.isNotEmpty(needHandleField)){
+            return needHandleField.toArray(new String[0]);
+        }
         String className = pojoClass.getName();
         String[] needFieldsArray = classNeedFieldMap.get(className);
         if(needFieldsArray!=null){
@@ -50,7 +59,7 @@ public class TestDateFieldDataHandler extends ExcelDataHandlerDefaultImpl {
             String excelEntityName = excelAnnotation.name();
             needFieldNameList.add(excelEntityName);
         }
-        needFieldsArray = needFieldNameList.stream().toArray(String[]::new);
+        needFieldsArray = needFieldNameList.toArray(new String[0]);
         classNeedFieldMap.put(className, needFieldsArray);
         return needFieldsArray;
     }

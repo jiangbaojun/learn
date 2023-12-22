@@ -80,7 +80,8 @@ public class WriteDemo {
     @Test
     public void test4() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.writeValueAsString(new Car(new Date())));
+        //序列化时，添加类名称
+        //objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.WRAPPER_ARRAY);
         //去掉默认的时间戳格式
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         //设置为东八区
@@ -106,7 +107,12 @@ public class WriteDemo {
         //解析器支持解析结束符
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
 
-        System.out.println(objectMapper.writeValueAsString(new Car(new Date())));
+        Employee employee = new Employee("John Doe", "john@doe.com");
+        Car car = new Car("BMW", 4);
+        car.setProduceDate(new Date());
+        car.setSaler(new Saler("a", "beijing"));
+        employee.setCar(car);
+        System.out.println(objectMapper.writeValueAsString(employee));
     }
 
     @Test

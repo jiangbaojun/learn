@@ -63,6 +63,9 @@ public class Demo3 {
         String dateTimeStrParam = "第1季度 2021-01-17 22:51:32";
         LocalDateTime localDateTime = LocalDateTime.parse(dateTimeStrParam, formatter);
         System.out.println("解析后的结果：" + localDateTime);
+
+        ZonedDateTime zonedDateTime = LocalDateTime.parse("2030-03-31T03:00:06").atZone(ZoneId.of("Europe/Berlin"));
+        System.out.printf(zonedDateTime.format(formatter));
     }
 
 }

@@ -1,6 +1,6 @@
 package com.example.spring.jackson;
 
-import com.example.spring.jackson.custom.DateDeserialize;
+import com.example.spring.jackson.custom.MyDateDeserialize;
 import com.example.spring.jackson.custom.SalerDeserialize;
 import com.example.spring.jackson.model.Car;
 import com.example.spring.jackson.model.Saler;
@@ -106,7 +106,7 @@ public class ReadDemo {
     public void test10() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(Date.class, new DateDeserialize());
+        module.addDeserializer(Date.class, new MyDateDeserialize());
         module.addDeserializer(Saler.class, new SalerDeserialize());
         //module.addDeserializer(Car.class, new CarDeserialize());
         objectMapper.registerModule(module);

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateSerializer extends JsonSerializer<Date> {
+public class MyDateSerializer extends JsonSerializer<Date> {
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
  
 	@Override

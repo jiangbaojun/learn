@@ -1,6 +1,7 @@
 package com.example.spring.jackson;
 
-import com.example.spring.jackson.custom.DateSerializer;
+import com.example.spring.jackson.custom.CustomAnnotationIntrospector;
+import com.example.spring.jackson.custom.MyDateSerializer;
 import com.example.spring.jackson.model.Car;
 import com.example.spring.jackson.model.Employee;
 import com.example.spring.jackson.model.Saler;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -119,13 +121,50 @@ public class WriteDemo {
     public void test5() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
-        module.addSerializer(Date.class, new DateSerializer());
+        module.addSerializer(Date.class, new MyDateSerializer());
         objectMapper.registerModule(module);
         Car car = new Car("BMW", 4);
         car.setProduceDate(new Date());
         car.setSaler(new Saler("a", "beijing"));
         String jsonStr = objectMapper.writeValueAsString(car);
         System.out.println(jsonStr);
+    }
+
+    /**
+     * 忽略注解
+     */
+    @Test
+    public void test6() throws Exception {
+        Car car = new Car("BMW", 4);
+        car.setProduceDate(new Date());
+        car.setMyDate(new Date());
+        car.setMyDate2(new Date());
+
+        ObjectMapper om1 = new ObjectMapper();
+        String json1 = om1.writeValueAsString(car);
+        System.out.println(json1);
+//        Car car1 = om1.readValue(json1, Car.class);
+//        System.out.println(car1);
+
+
+        ObjectMapper om2 = new ObjectMapper();
+        //忽略注解支持
+        om2.configure(MapperFeature.USE_ANNOTATIONS, false);
+        String json2 = om2.writeValueAsString(car);
+        System.out.println(json2);
+        Car car2 = om2.readValue(json2, Car.class);
+        System.out.println(car2);
+
+        ObjectMapper om3 = new ObjectMapper();
+        //忽略指定的注解支持，通过注解解析器CustomAnnotationIntrospector
+        om3.setAnnotationIntrospector(new CustomAnnotationIntrospector());
+        String json3 = om3.writeValueAsString(car);
+        System.out.println(json3);
+        Car car3 = om3.readValue(json3, Car.class);
+        System.out.println(car3);
+
+
+
     }
 
 }

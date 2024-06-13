@@ -17,12 +17,18 @@ public class MyTopicConsumer {
       TopicSession session = null;
       TopicConnection conn = null;
       try {
-        TopicConnectionFactory factory = new ActiveMQConnectionFactory("tcp://artemis-01.chengdudev.edetekapps.cn:61618");
+//          String brokerUrl = "tcp://artemis-01.chengdudev.edetekapps.cn:61618";
+          String brokerUrl = "tcp://192.168.230.90:61616";
+
+//          String topicName = "my.ps.test.queue";
+          String topicName = "Consumer.a.VirtualTopic.test";
+
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(brokerUrl);
         conn = factory.createTopicConnection();
         conn.start();
         session = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
         // 创建消息队列
-        Topic topic = session.createTopic("my.ps.test.queue");
+        Topic topic = session.createTopic(topicName);
         // 创建消息接受者
         MessageConsumer consumer = session.createConsumer(topic);
         //MessageConsumer consumer = session.createConsumer(topic, "mytag='5'");

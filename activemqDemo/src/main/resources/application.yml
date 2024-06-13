@@ -28,9 +28,10 @@ testVar:
 #自定义封装配置
 customer:
   message:
-    #    broker-url: tcp://artemis-01.chengdudev.edetekapps.cn:61618
-    #    broker-url: tcp://artemis-02.chengdudev.edetekapps.cn:61618
-    broker-url: "failover:(tcp://artemis-01.chengdudev.edetekapps.cn:61618,tcp://artemis-02.chengdudev.edetekapps.cn:61618)"
+#    broker-url: tcp://artemis-01.chengdudev.edetekapps.cn:61618
+#    broker-url: tcp://artemis-02.chengdudev.edetekapps.cn:61618
+#    broker-url: "failover:(tcp://artemis-01.chengdudev.edetekapps.cn:61618,tcp://artemis-02.chengdudev.edetekapps.cn:61618)"
+    broker-url: "failover:(tcp://192.168.230.90:61616)"
 
   # 前端thymeleaf模板配置
   thymeleaf:

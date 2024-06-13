@@ -1,5 +1,6 @@
 package com.mrk.amq.virtualtopic;
 
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
@@ -15,11 +16,11 @@ import javax.jms.TextMessage;
 @Component
 public class VpRecv {
 
-//    @JmsListener(destination="Consumer.a.VirtualTopic.test")
+    @JmsListener(destination="Consumer.a.VirtualTopic.test")
     //destination值可以使用application.yml中的配置属性
 //    @JmsListener(destination="Consumer.${testVar.xyz}.VirtualTopic.test")
     public void receiveMsg(TextMessage textMessage) throws JMSException {
         String text = textMessage.getText();
-        System.out.println("接收到消息 : "+text);
+        System.out.println("接收到vp消息 : "+text);
     }
 }

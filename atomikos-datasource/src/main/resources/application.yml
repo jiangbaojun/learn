@@ -1,0 +1,90 @@
+server:
+  port: 8080
+
+#使用com.mrk.learn.md.properties.MrkDataSources自主解析
+datasource:
+  sources:
+    demo_ds_1:
+      url: jdbc:mysql://127.0.0.1:3306/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 12345678
+    demo_ds_2:
+      url: jdbc:mysql://42.193.117.124:3301/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 12345678
+    demo_ds_3:
+      url: jdbc:oracle:thin:@140.100.130.112:1521:orcl
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      username: micro_vsta
+      password: micro_vsta
+#使用com.mrk.learn.md.properties.MyDataSources自动生成datasource
+my:
+  datasource:
+    sources:
+      demo_ds_1:
+        url: jdbc:mysql://127.0.0.1:3306/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 12345678
+        initial-size: 10
+        max-active: 200
+        min-idle: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        connectionErrorRetryAttempts: 3
+        timeBetweenConnectErrorMillis: 300000
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      demo_ds_2:
+        url: jdbc:mysql://42.193.117.124:3301/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 12345678
+      demo_ds_3:
+        url: jdbc:oracle:thin:@140.100.130.112:1521:orcl
+        driver-class-name: oracle.jdbc.driver.OracleDriver
+        username: micro_vsta
+        password: micro_vsta
+spring:
+  datasource:
+    druid:
+      filters: wall,config
+      web-stat-filter:
+        enabled: true
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: admin
+        allow: localhost,127.0.0.1
+#  datasource:
+#    name: datasource
+#    url: jdbc:mysql://127.0.0.1:3306/db1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#    username: root
+#    password: 12345678
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+  #热部署生效
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java,src/main/resources/templates
+      exclude: WEB-INF/**
+  application:
+    name: thymeleaf
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+dept:
+  name: 11

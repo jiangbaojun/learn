@@ -32,8 +32,21 @@ public class WriteDemo {
     public void test1() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         Car car = new Car("BMW", 4);
+        car.setMyDate(new Date());
         objectMapper.writeValue(new FileOutputStream("C:\\Users\\BaojunJiang\\Desktop\\output-2.json"), car);
         String json = objectMapper.writeValueAsString(car);
+        System.out.printf(json);
+    }
+    @Test
+    public void test11() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Employee employee = new Employee();
+        employee.setName("xiaoming");
+        employee.setEnrollmentDate(new Date());
+        Car car = new Car("BMW", 4);
+        car.setMyDate(new Date());
+        employee.setCar(car);
+        String json = objectMapper.writeValueAsString(employee);
         System.out.printf(json);
     }
 
@@ -95,7 +108,8 @@ public class WriteDemo {
         //空值不序列化
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //反序列化时，属性不存在的兼容处理
-        objectMapper.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        //objectMapper.getDeserializationConfig().withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //序列化日期时以timestamps输出，默认true
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         //序列化枚举是以toString()来输出，默认false，即默认以name()来输出

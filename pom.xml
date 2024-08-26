@@ -8,6 +8,7 @@
     <artifactId>learn</artifactId>
     <version>1.0.0.RELEASE</version>
     <modules>
+        <module>atomikos-datasource</module>
         <module>multi-datasource</module>
         <module>sharding-jdbc</module>
         <module>tesser4j-demo</module>

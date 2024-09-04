@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  * 数据源3
  */
 //@Configuration
-//@MapperScan(basePackages={"com.mrk.learn.md.mapper.md3"},sqlSessionFactoryRef="sessionFactory3")
+//@MapperScan(basePackages={"com.mrk.learn.md.mapper.md3"}, sqlSessionFactoryRef="sessionFactory3", sqlSessionTemplateRef = "sqlSessionTemplate3")
 public class Config3 {
 
     @Autowired

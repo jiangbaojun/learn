@@ -58,10 +58,12 @@ public class WriteTest {
         ExcelWriter build = EasyExcel.write(file).build();
 
         List<M1> list_1 = Arrays.asList(new M1("a", 1), new M1("b",2));
+        List<M1> list_11 = Arrays.asList(new M1("a1", 11), new M1("b",12));
         WriteSheet writeSheet = EasyExcel.writerSheet(0, "sheet0").head(M1.class).build();
         build.write(list_1, writeSheet);
+        build.write(list_11, writeSheet);
 
-        List<M2> list_2 = Arrays.asList(new M2("x", 11), new M2("y",22));
+        List<M2> list_2 = Arrays.asList(new M2("x", 21), new M2("y",22));
         writeSheet = EasyExcel.writerSheet(1, "sheet1").head(M2.class).build();
         build.write(list_2, writeSheet);
         build.finish();

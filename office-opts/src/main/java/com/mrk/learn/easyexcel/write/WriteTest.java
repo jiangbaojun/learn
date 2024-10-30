@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,24 @@ public class WriteTest {
                 excelWriter.finish();
             }
         }
+    }
+
+    /**
+     * 多sheet，不同数据结构
+     */
+    @Test
+    public void multiSheetDemo() {
+        File file = new File("src/main/resources/easyexcel" + File.separator + "write_multi" + System.currentTimeMillis() + ".xlsx");
+        ExcelWriter build = EasyExcel.write(file).build();
+
+        List<M1> list_1 = Arrays.asList(new M1("a", 1), new M1("b",2));
+        WriteSheet writeSheet = EasyExcel.writerSheet(0, "sheet0").head(M1.class).build();
+        build.write(list_1, writeSheet);
+
+        List<M2> list_2 = Arrays.asList(new M2("x", 11), new M2("y",22));
+        writeSheet = EasyExcel.writerSheet(1, "sheet1").head(M2.class).build();
+        build.write(list_2, writeSheet);
+        build.finish();
     }
 
     @Test
